@@ -15,7 +15,13 @@ async def main():
     })
     # List tools
     tools = await client.get_tools()
-    print(f"Available tools: {tools}")
+    for tool in tools:
+        print(f"Tool Name: {tool.name}, Description: {tool.description}")
 
+    # Call a tool
+    fetch_tool = tools[0]
+    result = await fetch_tool.ainvoke({"query": "What is the capital of France?"})
+    print(f"Result from {fetch_tool.name}: {result}")
+    
 if __name__ == "__main__":
     asyncio.run(main())
